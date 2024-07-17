@@ -2,11 +2,11 @@ const express = require('express');
 const connectDB = require('./config/db');
 const vehicleRoutes = require('./routes/vehicle');
 const bodyParser = require('body-parser');
-require('dotenv').config(); // Cargar variables de entorno desde .env
+require('dotenv').config(); 
 
 const app = express();
 
-// Conectar a la base de datos
+
 connectDB();
 
 app.use(bodyParser.json());
