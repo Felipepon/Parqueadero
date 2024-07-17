@@ -27,8 +27,8 @@ Para iniciar el servidor:
 
 ## Backup de Base de Datos
 
-El backup de la base de datos se encuentra en el directorio ~/backup.
-Para restaurar la base de datos:
+    El backup de la base de datos se encuentra en el directorio ~/backup.
+    Para restaurar la base de datos:
     ```sh
     mongodump --uri "mongodb+srv://felipontamayo:2STmH1iEjaHAA1JG@cluster0.i0er2rw.mongodb.net/test?retryWrites=true&w=majority" --out ~/backup/mongodb
 
