@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom'; // Importa useNavigate en lugar de useHistory
+
+import { useParams, useNavigate } from 'react-router-dom'; 
 import './UpdateVehicle.css';
+import axiosInstance from '../../axiosConfig';
 
 const UpdateVehicle = () => {
   const [vehicle, setVehicle] = useState({
@@ -13,10 +14,10 @@ const UpdateVehicle = () => {
   });
 
   const { id } = useParams();
-  const navigate = useNavigate(); // Reemplaza useHistory con useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    axios.get(`/api/vehicles/${id}`)
+    axiosInstance.get(`/vehicles/${id}`)
       .then(res => setVehicle(res.data))
       .catch(err => console.error(err));
   }, [id]);
@@ -27,7 +28,7 @@ const UpdateVehicle = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.put(`/api/vehicles/${id}`, vehicle)
+    axiosInstance.put(`/vehicles/${id}`, vehicle)
       .then(() => navigate('/')) // Reemplaza history.push con navigate
       .catch(err => console.error(err));
   };

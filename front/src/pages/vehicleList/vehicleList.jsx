@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './vehicleList.css';
+import axiosInstance from '../../axiosConfig';
 
 const VehicleList = () => {
   const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/vehicles')
+    axiosInstance.get('/vehicles')
       .then(res => setVehicles(res.data))
       .catch(err => console.error(err));
   }, []);
+
+  const handleDelete = (vehicleId) => {
+    if (window.confirm("Are you sure you want to delete this vehicle?")) {
+      axiosInstance.delete(`/vehicles/${vehicleId}`)
+        .then(() => {
+          // Filtrar el vehículo eliminado de la lista
+          setVehicles(prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== vehicleId));
+        })
+        .catch(err => console.error(err));
+    }
+  };
 
   return (
     <div className="vehicle-list">
@@ -37,6 +48,11 @@ const VehicleList = () => {
               <td>{vehicle.user}</td>
               <td>
                 <Link to={`/update/${vehicle._id}`} className="btn">Update</Link>
+                <button 
+                  onClick={() => handleDelete(vehicle._id)} 
+                  className="btn btn-delete">
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
