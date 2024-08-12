@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate en lugar de useHistory
 import './AddVehicle.css';
 
 const AddVehicle = () => {
@@ -12,7 +12,7 @@ const AddVehicle = () => {
     user: ''
   });
 
-  const history = useHistory();
+  const navigate = useNavigate(); // Reemplaza useHistory con useNavigate
 
   const handleChange = e => {
     setVehicle({ ...vehicle, [e.target.name]: e.target.value });
@@ -21,7 +21,7 @@ const AddVehicle = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axios.post('/api/vehicles', [vehicle])
-      .then(() => history.push('/'))
+      .then(() => navigate('/')) // Reemplaza history.push con navigate
       .catch(err => console.error(err));
   };
 
