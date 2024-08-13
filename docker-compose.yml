@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb+srv://felipontamayo:2STmH1iEjaHAA1JG@cluster0.i0er2rw.mongodb.net/Vehicledb?retryWrites=true&w=majority
+    volumes:
+      - .:/usr/src/app
+      - /usr/node_modules
+
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
